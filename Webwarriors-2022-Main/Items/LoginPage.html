@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="CSS.css">
+        <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    </head>
+    <body>
+        <div class="Heading">
+            <img src="logo1.png" class="logo">
+            <div class="NavBar">
+                <a href="../HomePage.html"><button class="but1">Home</button></a>
+                <a href="Pricing.html"><button class="but2">Pricing</button></a>
+                <a href="stocks&investments.html"><button class="but3">Stocks & Investments</button></a>
+                <a href="Aboutus.html"><button class="but4">About Us</button></a>   
+                <button class="but6">Login</button>           
+                <div class="dropdown">
+                    <button class="dropbtn">Support</button>
+                        <div class="dropdown-content">
+                            <a href="Support1.html">How to Register</a>
+                            <a href="Support2.html">Contact Details</a>
+                            <a href="Support3.html">FAQs</a>
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div id="loginPage">
+            <h2>Login</h2>
+            <form>
+                <br>
+                <br>
+
+                <label  class="userLabel" id="userLbl">Membership Code</label><input type="text" value="admin" class="userInput" id="username">
+                <label  class="userLabel" id="passLbl">Password</label><input type="password" value="admin" class="userInput" id="password">
+
+                <br>
+                <div class="popup1" onclick="submes()">Login</div>
+                <a class="popup1" id= "createAccount" href="SignUpPage.html">How to Register</a>
+            </form>
+        </div>
+        <div class="Footer">
+            <p class="disclaimer">This website was only made for the purpose of submission in the Envisage 2022: Web Warriors Competition, its use in any commercial or corporate way is strictly prohibited. I hope you find this Helpful.</p>
+            <a href="Support1.html" class="foot1">How to Register</a>
+            <a href="Support2.html" class="foot1">Contact Us</a>
+            <a href="Support3.html" class="foot1">FAQs</a>
+            <a href="#" class="foot1">Back to Top</a>
+        </div>
+         
+    </body>
+</html>
+
+<script>
+    
+    function submes() {
+        var myArray = [];
+        var CheckUserValue = false;
+
+        //Username and password for Only Admin. If you want change UserName and Password. You can change 
+        var username = "admin";
+        var password = "admin";
+
+
+        var getUserName = document.getElementById("username").value;
+        var getPassword = document.getElementById("password").value;
+        if(JSON.parse(sessionStorage.getItem("myArray")) != null)
+        {
+          myArray = JSON.parse(sessionStorage.getItem("myArray"));   
+        }
+       
+        var item = {};
+        item.userName = username;
+        item.password = password;
+
+        myArray.push(item);
+
+        myArray.forEach(element =>{
+
+            
+            var checkUserName = element.userName;
+            var checkUserPass = element.password;
+
+            if (checkUserName == getUserName &&  checkUserPass == getPassword) 
+            {
+                //localStorage.setItem('username');
+
+                CheckUserValue = true;
+                return false;
+                
+            }
+        });
+
+        if (CheckUserValue) 
+        {   
+             if(getUserName == "admin" && getPassword == "admin")
+            {
+                var queryTag = '<div id="viewQuery" onclick="ViewQuery()" style="position:absolute; cursor:pointer; background:;">Check Query</div>';
+               
+                sessionStorage.setItem('queryTagView', queryTag);
+                 location.href = "../HomePage.html";
+            }else{
+                sessionStorage.setItem('queryTagView', "");
+                sessionStorage.setItem('getUserName', "Logout");
+                location.href = "../HomePage.html";
+            //sessionStorage.setItem('userCredentials', JSON.stringify(myArray));
+            }
+
+            
+        }else{
+            alert("Please enter valid user Credentials");
+        }
+        
+    }
+</script>
